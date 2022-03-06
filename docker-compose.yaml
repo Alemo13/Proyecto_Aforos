@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  client-service:  # aplicacion node del subscriptor
+    restart: always 
+    build: ./cliente 
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment: # variables de entorno
+      - PORT=3000
+      - MQ_HOST=rabbitmq
+      - MONGO_HOST=mongo 
+      - SLEEP_TIME=20000
+    ports: 
+      - '3000:3000' 
+  
+  sensor-service:  # aplicacion node del publicador
+    restart: always 
+    build: ./sensor 
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment: # variables de entorno
+      - MQ_HOST=rabbitmq
+      - MONGO_HOST=mongo 
+      - SLEEP_TIME=20000
+  
+  mongo: # base de datos
+    image: mongo:5.0.5
+    logging: 
+      driver: none # deshabilita el logeo
+    ports:
+      - '27017:27017'
+  
+  rabbitmq: # rabbitmq
+    image: rabbitmq:3 
+    logging: 
+      driver: none 
+    environment:
+      - RABBIT_HOST=localhost
+      - RABBIT_PORT=5672
+    ports:
+      - '5672:5672'

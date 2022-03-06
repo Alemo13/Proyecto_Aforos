@@ -1,0 +1,31 @@
+{
+  "name": "aforos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hadrones/Aforos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hadrones/Aforos/issues"
+  },
+  "homepage": "https://github.com/Hadrones/Aforos#readme",
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.1",
+    "morgan": "^1.10.0",
+    "require-stack": "^1.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
