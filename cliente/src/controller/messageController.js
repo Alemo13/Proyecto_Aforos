@@ -1,9 +1,13 @@
-// const { messageSchema } = require('./models/task');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const { messageSchema } = require('../models/task');
 
-const processMessage = (message, messageChannel) => {
+const MessageModel = mongoose.model('Message', messageSchema)
+
+function processMessage(message, messageChannel) {
     const messageContent = JSON.parse(message.content.toString());
-    console.log(messageContent)
+    console.log(messageContent);
+    const newMessage = new MessageModel({tipo: messageContent.tipo, nombre: messageContent.nombre, capacidad: messageContent.capacidad});
+    newMessage.save();
     messageChannel.ack(message);
 }
 
