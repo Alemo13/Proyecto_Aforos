@@ -1,11 +1,11 @@
 const amqp = require("amqplib");
-const queue = process.env.QUEUE;
+const queue = process.env.QUEUE || 'restaurant';
 const rabbitConfig = {
     protocol: 'amqp',
-    hostname: process.env.RABBIT_HOST,
-    port: process.env.RABBIT_PORT,
-    username: process.env.RABBIT_USER,
-    password: process.env.RABBIT_PASSWORD,
+    hostname: process.env.RABBIT_HOST || 'localhost',
+    port: process.env.RABBIT_PORT || 5672,
+    username: process.env.RABBIT_USER || 'Aforos',
+    password: process.env.RABBIT_PASSWORD || '12345'
 }
 
 async function publisher() {
@@ -14,7 +14,7 @@ async function publisher() {
 
     await channel.assertQueue(queue)
 
-    const message = {"tipo": tipo, "nombre": nombre, "capacidad": capacidad}
+    const message = {"tipo": "test1", "nombre": "nombre prueba 1", "capacidad": "100"}
 
     const sent = await channel.sendToQueue(
         queue,
